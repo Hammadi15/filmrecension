@@ -1,13 +1,16 @@
 require('dotenv').config(); // must be first: loads .env into process.env
+const reviewRoutes = require('./routes/reviews');
 
 const express = require('express');
 const movieRoutes = require('./routes/movies');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 app.use(express.json()); // lets us read JSON request bodies (req.body)
 
 app.use('/api/movies', movieRoutes);
-
+app.use('/api/auth', authRoutes);
+app.use('/api', reviewRoutes);
 // Any URL we don't have
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
